@@ -1,6 +1,6 @@
 
 
-# Webmenu
+# webmenu
 
 A dmenu like cli tool for generating a menu of options from a list of html elements. 
 
