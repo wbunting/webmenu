@@ -31,8 +31,8 @@ Construct a simple html file containing li elements that you would like the user
 Run `webmenu` and pass the `items.html` as an argument.
 
 ```bash
-webmenu -s items.html```
-
+webmenu -s items.html
+```
 
 After the user selects a choice the `output` attribute will be written to standard output. 
 
