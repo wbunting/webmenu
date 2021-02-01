@@ -3,3 +3,4 @@
 .vscode
 .DS_Store
 ./src-tauri/target/
+./dist/index.tauri.html
