@@ -1,0 +1,3 @@
+#!/bin/sh
+
+echo "" | dmenu -i -p "Search" | xargs -I{} ddgr --np --json "{}" | ddgr-renderer | xargs -0 -I{} webmenu -s "{}" | xargs -I{} $BROWSER "{}"
