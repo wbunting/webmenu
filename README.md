@@ -15,15 +15,21 @@ In the same way that dmenu is useful for adding simple interactivity to applicat
 
 For example if you use a command line search engine like ddgr the results are returned in such a way that if you directly pipe them into a dmenu you will be prompted with options for the description -- and selection an option will not output the url (instead it will output the document title of the result). 
 
-To see how webmenu can be of more use here consider the search example:
+To see how webmenu can be of more use here consider this one-liner search example:
 
 ```bash
-echo "" | dmenu -i -p "Search" | xargs -I{} ddgr -np "{}" | transform-data-to-html | xargs -I{} webmenu -s "{}"
+echo "" | 
+dmenu -i -p "Search" | 
+xargs -I{} ddgr -np "{}" | 
+ddgr-to-html | 
+xargs -0 -I{} webmenu -s "{}" |
+xargs -I{} $BROWSER "{}"
 ```
 
 Now the job is only to fill in the data transformation step which you could do via whatever method you please! Here's a trivial transformation with Node.js which we can convert to a binary using [pkg]():
 
 ```js
+// ddgr-to-html
 let input_stdin = "";
 
 const stdin = process.openStdin();
@@ -57,6 +63,11 @@ const main = () => {
   console.log(html);
 };
 ```
+
+The result is a simple pipeline for searching for data, browsing the results in whatever UI you like and then pointing to the results. You do all of this without ever visiting a page that has trackers to invade your privacy.
+
+It is also nice to bind scripts like this to a hotkey so that you can easily search for things without ever leaving the keyboard. 
+
 ## Installation
 
 ### Pre-built binaries
@@ -97,4 +108,11 @@ After the user selects a choice the `output` attribute will be written to standa
 
 ## Philosophy
 
+### Why HTML?
+
+### Why Webview?
+
+### Why Taliwindcss?
+
+Tailwind essentially IS just plain CSS, but it ends up with easier to maintain code due to not having to come up with your own classnames for everything, while still respecting the cascade. If you didn't realize naming things is hard. 
 
