@@ -2,5 +2,5 @@
 /public/build/
 .vscode
 .DS_Store
-./src-tauri/target/
-./dist/index.tauri.html
+src-tauri/target/
+dist/index.tauri.html
