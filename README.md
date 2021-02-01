@@ -11,9 +11,9 @@ A dmenu like cli tool for generating a menu of options from a list of html eleme
 
 ## Why is this useful?
 
-In the same way that dmenu is useful for adding simple interactivity to applications. webmenu seeks to do the same but while allowing for a bit more flexibility in terms of styling the menu items. 
+In the same way that [dmenu](https://tools.suckless.org/dmenu/) is useful for adding simple interactivity to applications. webmenu seeks to do the same but while allowing for a bit more flexibility in terms of styling the menu items. 
 
-For example if you use a command line search engine like ddgr the results are returned in such a way that if you directly pipe them into a dmenu you will be prompted with options for the description -- and selection an option will not output the url (instead it will output the document title of the result). 
+For example if you use a command line search engine like [ddgr](https://github.com/jarun/ddgr) the results are returned in such a way that if you directly pipe them into a dmenu you will be prompted with options for the description -- and selection an option will not output the url (instead it will output the document title of the result). 
 
 To see how webmenu can be of more use here consider this one-liner search example:
 
@@ -26,10 +26,10 @@ xargs -0 -I{} webmenu -s "{}" |
 xargs -I{} $BROWSER "{}"
 ```
 
-Now the job is only to fill in the data transformation step which you could do via whatever method you please! Here's a trivial transformation with Node.js which we can convert to a binary using [pkg]():
+Now the job is only to fill in the data transformation step which you could do via whatever method you please! Here's a trivial transformation with Node.js which we can convert to a binary using [pkg](https://github.com/vercel/pkg):
 
 ```js
-// ddgr-to-html
+// ddgr-to-html.js
 let input_stdin = "";
 
 const stdin = process.openStdin();
