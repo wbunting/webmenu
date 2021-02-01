@@ -6,8 +6,11 @@ A dmenu like cli tool for generating a menu of options from a list of html eleme
 
 <!-- toc -->
 
-- [Installation](#installation)
-- [Usage](#usage)
+[Installation](#installation)
+[Usage](#usage)
+[Recipies](#recipies)
+[Development](#development)
+[Philosophy](#philosophy)
 
 ## Why is this useful?
 
