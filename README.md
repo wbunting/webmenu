@@ -93,6 +93,7 @@ This will create the binaries for your operating system in: `./src-tauri/release
 Construct a simple html file containing li elements that you would like the user to select from. 
 
 ```html
+<!-- items.html -->
 <li output="first">First</li>
 <li output="second">Second</li>
 <li output="third">Third</li>
