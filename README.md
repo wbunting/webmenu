@@ -14,7 +14,7 @@ A dmenu like program for generating a menu of options from a list of html elemen
 - [Usage](#usage)
 - [Recipes](#recipes)
 - [Development](#development)
-- [Philosophy](#philosophy)
+- [Philosophy](#philosophy-and-faq)
 
 ## What is this?
 
@@ -29,15 +29,15 @@ This will prompt the use to select either "Hello" or "World" and upon selection 
 
 ## Why is this useful?
 
-While useless by itself, it is useful in the same way that [dmenu](https://tools.suckless.org/dmenu/) is useful for adding simple interactivity to applications. webmenu seeks to do the same but while allowing for a bit more flexibility in terms of styling the menu items, and handle more complex input than just lines of standard input. 
+While useless by itself, it is useful in the same way that [dmenu](https://tools.suckless.org/dmenu/) is useful for adding simple interactivity to applications. webmenu seeks to do the same, but while allowing for a bit more flexibility in styling the menu items, and handling more complex input than just single lines of standard input. 
 
-A common pipeline that uses webmenu might be to:
+A pipeline that uses webmenu might be to:
 1. curl a resource from the web (not executing javascript in the process)
 2. pipe the response into a formatter that generates the options for webmenu
 3. pipe to webmenu
-4. take the ouput of webmenu and redirect it to an application intended for viewing that output. Eg. mpv for video, a terminal for text pages, a browser for complex pages etc.
+4. take the output of webmenu and redirect it to an application intended for viewing that output. Eg. mpv for video, a terminal for text pages, a browser for complex pages etc.
 
-For example, if you use a command line search engine like [ddgr](https://github.com/jarun/ddgr) the results are returned in such a way that if you directly pipe them into a dmenu you will be prompted with options for the descriptions instead of only the titles of the results. And selection of an option will not output the url (instead it will output the document title of the result). 
+For example, if you use a command line search engine like [ddgr](https://github.com/jarun/ddgr) the results are returned in such a way that if you directly pipe them into a dmenu you will be prompted with options for both the result titles and the descriptions instead of only the titles of the results. And selection of an option will not output the url (instead it will output the title of the result). 
 
 To see how webmenu can be of more use here consider this one-liner search example:
 
@@ -50,14 +50,14 @@ xargs -0 -I{} webmenu -s "{}" |
 xargs -I{} $BROWSER "{}"
 ```
 
-Now the job is only to fill in the data transformation step which you could do via whatever method you please! Here's a trivial transformation with Node.js which we can convert to a binary using [pkg](https://github.com/vercel/pkg):
+Now the job is only to fill in the data transformation step which you could do via whatever method you please. Here's a trivial transformation written in Node.js which we can convert to a binary using [pkg](https://github.com/vercel/pkg):
 
 ```js
-// ddgr-to-html.js
+// scripts/ddgr-to-html.js
+
+// read standard input
 let input_stdin = "";
-
 const stdin = process.openStdin();
-
 stdin.on("data", (data) => {
   input_stdin += data;
 });
@@ -67,7 +67,10 @@ stdin.on("end", () => {
 });
 
 const main = () => {
+  // parse the json from standard input
   const jsonData = JSON.parse(input_stdin);
+  
+  // render the json to styled li elements for webmenu 
   const html = jsonData
     .map(
       ({
@@ -84,6 +87,8 @@ const main = () => {
         </li>`
     )
     .join("");
+    
+  // write the output to standard output
   console.log(html);
 };
 ```
@@ -96,7 +101,7 @@ It is also nice to bind scripts like this to a hotkey so that you can easily sea
 
 ### Pre-built binaries
 
-Check the releases page for your operating system (only Linux for now...).
+Check the releases page for tarballs. These should work on Linux and MacOS, although MacOS is untested at the moment. 
 
 ### From Source
 
@@ -137,6 +142,9 @@ Two things we will probably support in the future:
 - An external CSS file as a command line argument
 - Respecting GTK theme / xrdb colors. 
 
+### Fuzzy Find
+
+If you pass a string to the `-p` option of webmenu you will get a fuzzy find prompt injected at the top of the webmenu (exactly like dmenu). This disables the letter hotkeys however.
 
 ## Recipes
 
@@ -192,17 +200,26 @@ notify-send "Loading video..."
 mpv --ytdl-format="bestvideo[height<=?720][fps<=?30][ext=webm]+bestaudio/best" "$url"
 ```
 
+There is a bit more complex parsing here needed since the output from curl is not intended to be read directly. The scripts are in the scripts directory of this repository. 
+
 ## Development
 
-For reasons unknown to me at the moment it looks like the Tauri dev server doesn't accept CLI arguments. So to develop you'll need to modify the frontend code with a manual input of list elements instead of getting it from the CLI arguments. 
+For reasons unknown to me at the moment it looks like the Tauri dev server doesn't accept CLI arguments. So to develop you'll need to modify the frontend code with a manual input of list elements instead of getting it from the CLI arguments. So for now you can set them manually behind the `isProd` switch in the `onMount` clause of the frontend. 
 
-Then you need two run two servers the frontend and Tauri.
+You'll need to make sure you have a rust development environment and a node.js one. Additionally on the Rust side youll need tauri-bundler `cargo install tauri bundler` and on the node side you'll need yarn `npm install -g yarn`. 
 
-## Philosophy
+Then simply
 
-- Browsers should not be the only (or even primary?) way of interfacing with the web. They are good for some things, but require a lot of system resources to run and are easy attack vectors for malicious code.
+```bash
+yarn install && yarn dev
+```
+
+This will wait for the frontend assets to bundle before launching Tauri. 
+
+## Philosophy and FAQ
+
+- Browsers should not be the only (or even primary?) way of interfacing with the web. They are good for some things, but require a lot of system resources to run and are easy attack vectors for malicious code / trackers.
 - Web users should not have to run nonfree javascript in browsers to do basic navigation
-
 
 ### Why HTML?
 
