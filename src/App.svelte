@@ -24,6 +24,13 @@
     );
   }
 
+  const handleClick = (output) => {
+    invoke({
+      cmd: "sendToStandardOutAndExit",
+      output,
+    });
+  };
+
   const updateData = () => {
     console.log("updating");
     splitdata = data.split("<li");
@@ -44,6 +51,7 @@
       .join("");
 
     [...document.getElementsByTagName("li")].forEach((e) => {
+      e.addEventListener("click", () => handleClick(e.getAttribute("output")));
       const originalClass = e.getAttribute("class");
       e.setAttribute("class", cx(originalClass, "list-none"));
     });
