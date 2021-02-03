@@ -12,7 +12,20 @@
         {
           "name": "source",
           "short": "s",
-          "takesValue": true
+          "takesValue": true,
+          "description": "html source of li elements for webmenu"
+        },
+        {
+          "name": "fzf",
+          "short": "f",
+          "description": "If there should be a fuzzyfind UI"
+        },
+        {
+          "name": "placeholder",
+          "short": "p",
+          "description": "placeholder for fzf",
+          "takesValue": true,
+          "requires": "fzf"
         }
       ]
     },
@@ -20,8 +33,8 @@
       "active": true
     },
     "bundle": {
-      "active": true,
-      "targets": "all",
+      "active": false,
+      "targets": [],
       "identifier": "com.tauri.dev",
       "icon": [
         "icons/32x32.png",
@@ -55,7 +68,7 @@
       "resizable": false,
       "fullscreen": false,
       "width": 800,
-      "height": 1000
+      "height": 600
     },
     "security": {
       "csp": "default-src blob: data: filesystem: ws: http: https: 'unsafe-eval' 'unsafe-inline'"

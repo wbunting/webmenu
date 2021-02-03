@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/badge/license-GPLv3-yellow)](https://github.com/wbunting/webmenu/blob/master/LICENSE)
 
-A dmenu like cli tool for generating a menu of options from a list of html elements and writing the output to standard out. 
+A dmenu like program for generating a menu of options from a list of html elements and writing the output to standard out. 
 
 ![](webmenu.gif)
 
