@@ -1,5 +1,7 @@
 # webmenu
 
+[![License](https://img.shields.io/badge/license-GPLv3-yellow)](https://github.com/wbunting/webmenu/blob/master/LICENSE)
+
 A dmenu like cli tool for generating a menu of options from a list of html elements and writing the output to standard out. 
 
 ![](webmenu.gif)
@@ -16,7 +18,7 @@ A dmenu like cli tool for generating a menu of options from a list of html eleme
 
 In the same way that [dmenu](https://tools.suckless.org/dmenu/) is useful for adding simple interactivity to applications. webmenu seeks to do the same but while allowing for a bit more flexibility in terms of styling the menu items, and handle more complex input than just lines of standard input. 
 
-For example, if you use a command line search engine like [ddgr](https://github.com/jarun/ddgr) the results are returned in such a way that if you directly pipe them into a dmenu you will be prompted with options for the description instead of only the title. And selection of an option will not output the url (instead it will output the document title of the result). 
+For example, if you use a command line search engine like [ddgr](https://github.com/jarun/ddgr) the results are returned in such a way that if you directly pipe them into a dmenu you will be prompted with options for the descriptions instead of only the titles of the results. And selection of an option will not output the url (instead it will output the document title of the result). 
 
 To see how webmenu can be of more use here consider this one-liner search example:
 
