@@ -174,9 +174,8 @@ Then you need two run two servers the frontend and Tauri.
 
 ## Philosophy
 
-- Web users should not have to run nonfree javascript in browsers to do basic navigation
-- There is a lot of duplicated work in creating listview UI for the web. This aims to just coalesce all those implementations into a single binary.
 - Browsers should not be the only (or even primary?) way of interfacing with the web. They are good for some things, but require a lot of system resources to run and are easy attack vectors for malicious code.
+- Web users should not have to run nonfree javascript in browsers to do basic navigation
 
 
 ### Why HTML?
