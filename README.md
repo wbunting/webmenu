@@ -55,7 +55,7 @@ const main = () => {
         abstract,
         title,
         url,
-      }) => `<li class="rounded-lg overflow-hidden" output="${url}">
+      }) => `<li output="${url}">
           <div class="flex items-center">
             <div class="">
               <h2 class="font-bold text-lg">${title}</h2>
@@ -144,26 +144,33 @@ See above for an implementation of ddgr-to-html in Node.js. You can find it in t
 # scripts/youtube-search
 
 # prompt search
-echo "" |
+search_query=$(echo "" | 
 dmenu -i -p "🔎 Search" |
 # url encode spaces
-sed 's/ /+/g' | 
+sed 's/ /+/g')
+
+notify-send "Searching..."
+
 # curl down the yotube search page
-xargs -I{} curl -L "https://youtube.com/results?search_query={}" |
+curl -L "https://youtube.com/results?search_query=$search_query" |
 # extract the initial data and manipulate it to json
 sed -n '/var ytInitialData/,/};/p' |
 head -n 1 |
-sed -e 's/.*var ytInitialData = \(.*}\);.*/\1/' > /tmp/search.json && 
-cat /tmp/search.json |
+grep -oP '(?<=var ytInitialData = ).*}(?=;)' > /tmp/yts-search.json
+
+
+url=$(cat /tmp/yts-search.json |
 # the JSON from youtube contains a bunch of things we don't need so just remove those 
 simplify-youtube-json |
 # take the json and make some li elements to show in webmenu
 youtube-json-renderer | 
 # prompt the webmenu
-xargs -0 -I{} webmenu -s '{}' |
-# show the result in mpv
-xargs -I{} mpv --ytdl-format="bestvideo[height<=?720][fps<=?30][ext=webm]+bestaudio/best" "{}"
+xargs -0 -I{} webmenu -s '{}')
 
+notify-send "Loading video..."
+
+# show the result in mpv
+mpv --ytdl-format="bestvideo[height<=?720][fps<=?30][ext=webm]+bestaudio/best" "$url"
 ```
 
 ## Development
