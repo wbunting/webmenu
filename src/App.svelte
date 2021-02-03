@@ -5,8 +5,12 @@
   import { invoke } from "tauri/api/tauri";
   let selectedOption = 0;
   let data = null;
+  let fzf = "";
+  let placeholder = "Search";
   let splitdata = [];
   let main = null;
+  let showfzf = false;
+  const isProd = __env.isProd;
 
   function isElementInViewport(el) {
     let rect = el.getBoundingClientRect();
@@ -21,30 +25,74 @@
   }
 
   const updateData = () => {
+    console.log("updating");
     splitdata = data.split("<li");
     splitdata.shift();
+
     main.innerHTML = splitdata
+      .filter((s) => {
+        if (showfzf && Boolean(fzf)) {
+          return s.includes(fzf);
+        }
+        return true;
+      })
       .map((s, i) => {
         return `<div class="${cx("", {
           "bg-gray-600": i === selectedOption,
         })}"><li${s}</div>`;
       })
       .join("");
+
     [...document.getElementsByTagName("li")].forEach((e) => {
       const originalClass = e.getAttribute("class");
       e.setAttribute("class", cx(originalClass, "list-none"));
     });
   };
 
+  const init = (el) => {
+    el.focus();
+  };
+
   onMount(async () => {
     const matches = await getMatches();
-    data = matches.args.source.value;
+
+    // TODO: This is a hack until I figure out how to pass CLI arguments in dev mode to tauri
+    if (isProd) {
+      data = matches.args.source.value;
+
+      if (Boolean(matches.args.placeholder.value)) {
+        showfzf = true;
+        placeholder = matches.args.placeholder.value;
+      }
+    } else {
+      data = "<li output='hi'>hello</li><li output='wrld'>world</li>";
+      showfzf = true;
+      placeholder = "Search...";
+    }
+
     updateData();
   });
+
+  const handleSearch = () => {
+    updateData();
+  };
 
   const handleKeydown = (e) => {
     switch (e.key) {
       case "j": {
+        if (!showfzf) {
+          if (selectedOption < splitdata.length - 1) {
+            selectedOption += 1;
+            updateData();
+            let thisLi = document.querySelectorAll("li")[selectedOption];
+            if (!isElementInViewport(thisLi)) {
+              thisLi.scrollIntoView();
+            }
+          }
+        }
+        break;
+      }
+      case "ArrowDown": {
         if (selectedOption < splitdata.length - 1) {
           selectedOption += 1;
           updateData();
@@ -56,6 +104,19 @@
         break;
       }
       case "k": {
+        if (!showfzf) {
+          if (selectedOption > 0) {
+            selectedOption -= 1;
+            updateData();
+            let thisLi = document.querySelectorAll("li")[selectedOption];
+            if (!isElementInViewport(thisLi)) {
+              thisLi.scrollIntoView();
+            }
+          }
+        }
+        break;
+      }
+      case "ArrowUp": {
         if (selectedOption > 0) {
           selectedOption -= 1;
           updateData();
@@ -203,5 +264,12 @@
 </style>
 
 <svelte:window on:keydown={handleKeydown} />
-
+{#if showfzf}
+  <input
+    class="border py-2 px-3 w-full text-gray-900"
+    {placeholder}
+    bind:value={fzf}
+    use:init
+    on:input={handleSearch} />
+{/if}
 <main class="overflow-y-scroll" bind:this={main} />
