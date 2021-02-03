@@ -16,16 +16,10 @@
           "description": "html source of li elements for webmenu"
         },
         {
-          "name": "fzf",
-          "short": "f",
-          "description": "If there should be a fuzzyfind UI"
-        },
-        {
           "name": "placeholder",
           "short": "p",
           "description": "placeholder for fzf",
-          "takesValue": true,
-          "requires": "fzf"
+          "takesValue": true
         }
       ]
     },

@@ -60,11 +60,9 @@
     if (isProd) {
       data = matches.args.source.value;
 
-      showfzf = matches.args.fzf.value;
-      if (Boolean(matches.args.fzf.value)) {
-        if (matches.args.placeholder.value) {
-          placeholder = matches.args.placeholder.value;
-        }
+      if (Boolean(matches.args.placeholder.value)) {
+        showfzf = true;
+        placeholder = matches.args.placeholder.value;
       }
     } else {
       data = "<li output='hi'>hello</li><li output='wrld'>world</li>";
