@@ -137,9 +137,11 @@
       }
       case "q": {
         // kill the application
-        invoke({
-          cmd: "exit",
-        });
+        if (!showfzf) {
+          invoke({
+            cmd: "exit",
+          });
+        }
         break;
       }
       case "1": {

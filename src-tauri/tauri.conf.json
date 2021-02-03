@@ -27,8 +27,8 @@
       "active": true
     },
     "bundle": {
-      "active": false,
-      "targets": [],
+      "active": true,
+      "targets": ["appimage"],
       "identifier": "com.tauri.dev",
       "icon": [
         "icons/32x32.png",
