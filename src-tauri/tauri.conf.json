@@ -3,7 +3,7 @@
     "distDir": "../dist",
     "devPath": "http://localhost:5000",
     "beforeDevCommand": "",
-    "beforeBuildCommand": ""
+    "beforeBuildCommand": "yarn build"
   },
   "ctx": {},
   "tauri": {

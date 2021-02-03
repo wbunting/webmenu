@@ -4,3 +4,4 @@
 .DS_Store
 src-tauri/target/
 dist/index.tauri.html
+dist/build
