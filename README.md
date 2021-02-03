@@ -12,7 +12,7 @@ A dmenu like program for generating a menu of options from a list of html elemen
 - [Why is this useful?](#why-is-this-useful)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Recipies](#recipies)
+- [Recipes](#recipes)
 - [Development](#development)
 - [Philosophy](#philosophy)
 
@@ -21,7 +21,7 @@ A dmenu like program for generating a menu of options from a list of html elemen
 webmenu is a command line application that takes an html file of `li` tags and renders them in a simple webview. It is extremely light-weight and can replace the need to use a web browser for certain tasks. The "hello world" of this application is something like the following:
 
 ```bash
-echo "<li output="hello">Hello</li><li output="world">World</li>" | xargs -I{} webmenu -s "{}"
+webmenu -s "<li output='hello'>Hello</li><li output='world'>World</li>"
 ```
 
 This will prompt the use to select either "Hello" or "World" and upon selection write the `output` tag to standard out.
@@ -138,7 +138,7 @@ Two things we will probably support in the future:
 - Respecting GTK theme / xrdb colors. 
 
 
-## Recipies
+## Recipes
 
 A few of the scripts used here can be found in the scripts directory of the repository. For the helper utilities you'll have to compile them yourself with [pkg](https://github.com/vercel/pkg) at the moment, but projects can be made of them if there is enough interest.
 
