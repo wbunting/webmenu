@@ -4,7 +4,7 @@
   "license": "GPL-3.0-only",
   "scripts": {
     "build": "rollup -c",
-    "dev:svelte": "DEV=true rollup -c -w",
+    "dev:svelte": "rollup -c -w",
     "start": "sirv dist",
     "validate": "svelte-check",
     "tauri": "tauri",
