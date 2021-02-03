@@ -2,7 +2,7 @@
 
 A dmenu like cli tool for generating a menu of options from a list of html elements and writing the output to standard out. 
 
-*** DEMO ***
+![](webmenu.gif)
 
 <!-- toc -->
 
@@ -14,9 +14,9 @@ A dmenu like cli tool for generating a menu of options from a list of html eleme
 
 ## Why is this useful?
 
-In the same way that [dmenu](https://tools.suckless.org/dmenu/) is useful for adding simple interactivity to applications. webmenu seeks to do the same but while allowing for a bit more flexibility in terms of styling the menu items. 
+In the same way that [dmenu](https://tools.suckless.org/dmenu/) is useful for adding simple interactivity to applications. webmenu seeks to do the same but while allowing for a bit more flexibility in terms of styling the menu items, and handle more complex input than just lines of standard input. 
 
-For example if you use a command line search engine like [ddgr](https://github.com/jarun/ddgr) the results are returned in such a way that if you directly pipe them into a dmenu you will be prompted with options for the description -- and selection an option will not output the url (instead it will output the document title of the result). 
+For example, if you use a command line search engine like [ddgr](https://github.com/jarun/ddgr) the results are returned in such a way that if you directly pipe them into a dmenu you will be prompted with options for the description instead of only the title. And selection of an option will not output the url (instead it will output the document title of the result). 
 
 To see how webmenu can be of more use here consider this one-liner search example:
 
@@ -67,7 +67,7 @@ const main = () => {
 };
 ```
 
-The result is a simple pipeline for searching for data, browsing the results in whatever UI you like and then pointing to the results. You do all of this without ever visiting a page that has trackers to invade your privacy.
+The result is a simple pipeline for searching for data, browsing the results in whatever UI you like and then pointing to the results. You do all of this without ever visiting a website directly.
 
 It is also nice to bind scripts like this to a hotkey so that you can easily search for things without ever leaving the keyboard. 
 
@@ -75,14 +75,14 @@ It is also nice to bind scripts like this to a hotkey so that you can easily sea
 
 ### Pre-built binaries
 
-Check the releases page for a binary for your operating system (only Linux for now...).
+Check the releases page for your operating system (only Linux for now...).
 
 ### From Source
 
-To compile from source, first clone the repository. Then run:
+To compile from source, first clone the repository. You will need Rust and Node installed on your system. Then run:
 
 ```bash
-yarn install && yarn tauri build
+cargo add tauri-bundler && yarn install && yarn tauri build
 ```
 
 This will create the binaries for your operating system in: `./src-tauri/release/target/`
@@ -119,6 +119,8 @@ Two things we will probably support in the future:
 
 ## Recipies
 
+A few of the scripts used here can be found in the scripts directory of the repository. For the helper utilities you'll have to compile them yourself with [pkg](https://github.com/vercel/pkg) at the moment, but projects can be made of them if there is enough interest.
+
 ### Search menu
 ```bash
 #!/bin/sh
@@ -131,7 +133,7 @@ xargs -0 -I{} webmenu -s "{}" |
 xargs -I{} $BROWSER "{}"
 ```
 
-See above for an implementation of ddgr-to-html in Node.js. You can find it in the scripts folder of this repository. 
+See above for an implementation of ddgr-to-html in Node.js. You can find it in the scripts folder of this repository. You could even pipe the result to a program switcher depending on the url -- if say you wanted to open videos in mpv. 
 
 ### Video watching menu
 
@@ -140,7 +142,7 @@ See above for an implementation of ddgr-to-html in Node.js. You can find it in t
 # scripts/youtube-search
 
 # prompt search
-echo "" | 
+echo "" |
 dmenu -i -p "🔎 Search" |
 # url encode spaces
 sed 's/ /+/g' | 
@@ -149,8 +151,8 @@ xargs -I{} curl -L "https://youtube.com/results?search_query={}" |
 # extract the initial data and manipulate it to json
 sed -n '/var ytInitialData/,/};/p' |
 head -n 1 |
-sed -e 's/.*var ytInitialData = \(.*}\);.*/\1/' > /tmp/webmenu/search.json && 
-cat /tmp/webmenu/search.json |
+sed -e 's/.*var ytInitialData = \(.*}\);.*/\1/' > /tmp/search.json && 
+cat /tmp/search.json |
 # the JSON from youtube contains a bunch of things we don't need so just remove those 
 simplify-youtube-json |
 # take the json and make some li elements to show in webmenu
@@ -166,17 +168,18 @@ xargs -I{} mpv --ytdl-format="bestvideo[height<=?720][fps<=?30][ext=webm]+bestau
 
 For reasons unknown to me at the moment it looks like the Tauri dev server doesn't accept CLI arguments. So to develop you'll need to modify the frontend code with a manual input of list elements instead of getting it from the CLI arguments. 
 
+Then you need two run two servers the frontend and Tauri.
 
 ## Philosophy
 
-- Web users should not have to run untrusted javascript in browsers to do basic navigation
+- Web users should not have to run nonfree javascript in browsers to do basic navigation
 - There is a lot of duplicated work in creating listview UI for the web. This aims to just coalesce all those implementations into a single binary.
-- Browsers should not be the only (or even primary?) way of interfacing with the web. They are good for some things, but require lots of clicks and execute somewhat arbitrary code on users systems that is not free.
-- UNIX philosophy is HARDER to write good code for than a monolith application, but it generally produces longer lasting applications
-  
+- Browsers should not be the only (or even primary?) way of interfacing with the web. They are good for some things, but require a lot of system resources to run and are easy attack vectors for malicious code.
+
+
 ### Why HTML?
 
-- Our core uses Rust for the messaging between the binary and the webview, we could have easily used some binding to produce list UI in GTK etc, but this is much harder for end users to learn. HTML is widely known and inherently secure as just a markup language (except for the <script> tag). 
+Our core uses Rust for the messaging between the binary and the webview, we could have easily used some binding to produce list UI in GTK etc, but this is much harder for end users to learn. HTML is widely known and inherently secure as just a markup language (except for the `<script>` tag). 
 
 ### Why Webview?
 
@@ -188,8 +191,8 @@ Tailwind essentially IS just plain CSS, but it ends up with easier to maintain c
 
 ### Why Svelte?
 
-No reason -- it's somewhat minimal and easy to set up -- eventually we can probably deprecate SVELTE for a more simple templating engine written on the Rust side
+No reason -- it's somewhat minimal and easy to set up -- eventually we can probably deprecate SVELTE for a more simple templating engine written on the Rust side, although Svelte being a compiler probably removing it will not reduce the amount of javascript that we actually run in the webview. 
 
 ### Why Tauri?
 
-Very easy to get started, and comes with webview which we need. But as with Svelte it's probably not critical to the architecture and is a candidate for being replaced with just streaming html and our injected js directly to webview via the webview crate. 
+Very easy to get started, and comes with webview which we need. But, as with Svelte, it's probably not critical to the architecture and is a candidate for being replaced with just streaming html and our injected js directly to webview via the webview crate. 

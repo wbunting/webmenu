@@ -66,6 +66,113 @@
         }
         break;
       }
+      case "q": {
+        // kill the application
+        invoke({
+          cmd: "exit",
+        });
+        break;
+      }
+      case "1": {
+        const output = [...document.querySelectorAll("li")][0].getAttribute(
+          "output"
+        );
+        invoke({
+          cmd: "sendToStandardOutAndExit",
+          output,
+        });
+        break;
+      }
+      case "2": {
+        const output = [...document.querySelectorAll("li")][1].getAttribute(
+          "output"
+        );
+        invoke({
+          cmd: "sendToStandardOutAndExit",
+          output,
+        });
+        break;
+      }
+      case "3": {
+        const output = [...document.querySelectorAll("li")][2].getAttribute(
+          "output"
+        );
+        invoke({
+          cmd: "sendToStandardOutAndExit",
+          output,
+        });
+        break;
+      }
+      case "4": {
+        const output = [...document.querySelectorAll("li")][3].getAttribute(
+          "output"
+        );
+        invoke({
+          cmd: "sendToStandardOutAndExit",
+          output,
+        });
+        break;
+      }
+      case "5": {
+        const output = [...document.querySelectorAll("li")][4].getAttribute(
+          "output"
+        );
+        invoke({
+          cmd: "sendToStandardOutAndExit",
+          output,
+        });
+        break;
+      }
+      case "6": {
+        const output = [...document.querySelectorAll("li")][5].getAttribute(
+          "output"
+        );
+        invoke({
+          cmd: "sendToStandardOutAndExit",
+          output,
+        });
+        break;
+      }
+      case "7": {
+        const output = [...document.querySelectorAll("li")][6].getAttribute(
+          "output"
+        );
+        invoke({
+          cmd: "sendToStandardOutAndExit",
+          output,
+        });
+        break;
+      }
+      case "8": {
+        const output = [...document.querySelectorAll("li")][7].getAttribute(
+          "output"
+        );
+        invoke({
+          cmd: "sendToStandardOutAndExit",
+          output,
+        });
+        break;
+      }
+      case "9": {
+        const output = [...document.querySelectorAll("li")][8].getAttribute(
+          "output"
+        );
+        invoke({
+          cmd: "sendToStandardOutAndExit",
+          output,
+        });
+        break;
+      }
+      case "0": {
+        const output = [...document.querySelectorAll("li")][9].getAttribute(
+          "output"
+        );
+        invoke({
+          cmd: "sendToStandardOutAndExit",
+          output,
+        });
+        break;
+      }
       case "Enter": {
         // find the li that is selected and get it's output attribute
         const output = [...document.querySelectorAll("li")][

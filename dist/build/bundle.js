@@ -397,7 +397,7 @@ var app = (function () {
     		c: function create() {
     			main_1 = element("main");
     			attr_dev(main_1, "class", "overflow-y-scroll");
-    			add_location(main_1, file, 183998, 0, 4337757);
+    			add_location(main_1, file, 184105, 0, 4340262);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -498,6 +498,73 @@ var app = (function () {
     						}
     					}
 
+    					break;
+    				}
+    			case "q":
+    				{
+    					// kill the application
+    					o({ cmd: "exit" });
+
+    					break;
+    				}
+    			case "1":
+    				{
+    					const output = [...document.querySelectorAll("li")][0].getAttribute("output");
+    					o({ cmd: "sendToStandardOutAndExit", output });
+    					break;
+    				}
+    			case "2":
+    				{
+    					const output = [...document.querySelectorAll("li")][1].getAttribute("output");
+    					o({ cmd: "sendToStandardOutAndExit", output });
+    					break;
+    				}
+    			case "3":
+    				{
+    					const output = [...document.querySelectorAll("li")][2].getAttribute("output");
+    					o({ cmd: "sendToStandardOutAndExit", output });
+    					break;
+    				}
+    			case "4":
+    				{
+    					const output = [...document.querySelectorAll("li")][3].getAttribute("output");
+    					o({ cmd: "sendToStandardOutAndExit", output });
+    					break;
+    				}
+    			case "5":
+    				{
+    					const output = [...document.querySelectorAll("li")][4].getAttribute("output");
+    					o({ cmd: "sendToStandardOutAndExit", output });
+    					break;
+    				}
+    			case "6":
+    				{
+    					const output = [...document.querySelectorAll("li")][5].getAttribute("output");
+    					o({ cmd: "sendToStandardOutAndExit", output });
+    					break;
+    				}
+    			case "7":
+    				{
+    					const output = [...document.querySelectorAll("li")][6].getAttribute("output");
+    					o({ cmd: "sendToStandardOutAndExit", output });
+    					break;
+    				}
+    			case "8":
+    				{
+    					const output = [...document.querySelectorAll("li")][7].getAttribute("output");
+    					o({ cmd: "sendToStandardOutAndExit", output });
+    					break;
+    				}
+    			case "9":
+    				{
+    					const output = [...document.querySelectorAll("li")][8].getAttribute("output");
+    					o({ cmd: "sendToStandardOutAndExit", output });
+    					break;
+    				}
+    			case "0":
+    				{
+    					const output = [...document.querySelectorAll("li")][9].getAttribute("output");
+    					o({ cmd: "sendToStandardOutAndExit", output });
     					break;
     				}
     			case "Enter":

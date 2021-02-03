@@ -10,8 +10,8 @@ xargs -I{} curl -L "https://youtube.com/results?search_query={}" |
 # extract the initial data and manipulate it to json
 sed -n '/var ytInitialData/,/};/p' |
 head -n 1 |
-sed -e 's/.*var ytInitialData = \(.*}\);.*/\1/' > /tmp/webmenu/search.json && 
-cat /tmp/webmenu/search.json |
+sed -e 's/.*var ytInitialData = \(.*}\);.*/\1/' > /tmp/yts-search.json && 
+cat /tmp/yts-search.json |
 # the JSON from youtube contains a bunch of things we don't need so just remove those 
 simplify-youtube-json |
 # take the json and make some li elements to show in webmenu
