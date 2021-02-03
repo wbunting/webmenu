@@ -214,7 +214,7 @@ We want to render HTML on the users's system. There are a lot of ways to do this
 
 ### Why Taliwindcss?
 
-Tailwind essentially IS just plain CSS, but it ends up with easier to maintain code due to not having to come up with your own classnames for everything, while still respecting the cascade. If you didn't realize naming things is hard. 
+Tailwind essentially IS just plain CSS, but it ends up with easier to maintain code due to not having to come up with your own classnames for everything, while still respecting the cascade. If you didn't realize naming things is hard. Additionally for this use case it is easier to have everything in-line since we are only passing the string of li elements instead of a full webpage that inclues eg an external css file or a `<style>` tag (but we may support those in the future). 
 
 ### Why Svelte?
 
