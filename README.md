@@ -8,15 +8,34 @@ A dmenu like cli tool for generating a menu of options from a list of html eleme
 
 <!-- toc -->
 
+- [What is this?](#What is this?)
+- [Why is this useful](#why is this useful)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Recipies](#recipies)
 - [Development](#development)
 - [Philosophy](#philosophy)
 
+## What is this?
+
+webmenu is a command line application that takes an html file of `li` tags and renders them in a simple webview. It is extremely light-weight and can replace the need to use a web browser for certain tasks. The "hello world" of this application is something like the following:
+
+```bash
+echo "<li output="hello">Hello</li><li output="world">World</li>" | xargs -I{} webmenu -s "{}"
+```
+
+This will prompt the use to select either "Hello" or "World" and upon selection write the `output` tag to standard out.
+
+
 ## Why is this useful?
 
-In the same way that [dmenu](https://tools.suckless.org/dmenu/) is useful for adding simple interactivity to applications. webmenu seeks to do the same but while allowing for a bit more flexibility in terms of styling the menu items, and handle more complex input than just lines of standard input. 
+While useless by itself, it is useful in the same way that [dmenu](https://tools.suckless.org/dmenu/) is useful for adding simple interactivity to applications. webmenu seeks to do the same but while allowing for a bit more flexibility in terms of styling the menu items, and handle more complex input than just lines of standard input. 
+
+A common pipeline that uses webmenu might be to:
+1. curl a resource from the web (not executing javascript in the process)
+2. pipe the response into a formatter that generates the options for webmenu
+3. pipe to webmenu
+4. take the ouput of webmenu and redirect it to an application intended for viewing that output. Eg. mpv for video, a terminal for text pages, a browser for complex pages etc.
 
 For example, if you use a command line search engine like [ddgr](https://github.com/jarun/ddgr) the results are returned in such a way that if you directly pipe them into a dmenu you will be prompted with options for the descriptions instead of only the titles of the results. And selection of an option will not output the url (instead it will output the document title of the result). 
 
@@ -199,7 +218,7 @@ Tailwind essentially IS just plain CSS, but it ends up with easier to maintain c
 
 ### Why Svelte?
 
-No reason -- it's somewhat minimal and easy to set up -- eventually we can probably deprecate SVELTE for a more simple templating engine written on the Rust side, although Svelte being a compiler probably removing it will not reduce the amount of javascript that we actually run in the webview. 
+No reason -- it's somewhat minimal and easy to set up -- eventually we can probably deprecate Svelte for a more simple templating engine written on the Rust side, although Svelte being a compiler probably removing it will not reduce the amount of javascript that we actually run in the webview (which is used for navigation, mounting the options to the DOM etc.).
 
 ### Why Tauri?
 
