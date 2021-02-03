@@ -28,7 +28,7 @@
     },
     "bundle": {
       "active": true,
-      "targets": ["all"],
+      "targets": "all",
       "identifier": "com.tauri.dev",
       "icon": [
         "icons/32x32.png",
