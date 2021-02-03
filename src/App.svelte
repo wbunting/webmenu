@@ -73,7 +73,8 @@
         placeholder = matches.args.placeholder.value;
       }
     } else {
-      data = "<li output='hi'>hello</li><li output='wrld'>world</li>";
+      data =
+        "<li class='text-gray-300' output='hi'>hello</li><li output='wrld'>world</li>";
       showfzf = true;
       placeholder = "Search...";
     }
