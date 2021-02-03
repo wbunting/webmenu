@@ -8,8 +8,8 @@ A dmenu like cli tool for generating a menu of options from a list of html eleme
 
 <!-- toc -->
 
-- [What is this?](#What is this?)
-- [Why is this useful](#why is this useful)
+- [What is this?](#what-is-this)
+- [Why is this useful?](#why-is-this-useful)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Recipies](#recipies)
