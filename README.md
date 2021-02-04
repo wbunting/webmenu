@@ -1,6 +1,6 @@
 # webmenu
 
-[![License](https://img.shields.io/badge/license-GPLv3-yellow)](https://github.com/wbunting/webmenu/blob/master/LICENSE)
+[![License](https://img.shields.io/badge/license-GPLv3-yellow)](https://github.com/wbunting/webmenu/blob/master/LICENSE) ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/wbunting/webmenu) ![GitHub stars](https://img.shields.io/github/stars/wbunting/webmenu?style=social)
 
 A dmenu like program for generating a menu of options from a list of html elements and writing the output to standard out. 
 
