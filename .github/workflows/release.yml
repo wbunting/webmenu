@@ -38,20 +38,22 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y webkit2gtk-4.0
 
-      - name: install app dependencies and build it
-        run: yarn && yarn build
+      - name: install app dependencies
+        run: yarn
+
+      - name: build assets
+        run: yarn tauri build
 
       - name: semantic release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npx semantic-release
 
-      - uses: tauri-apps/tauri-action@v0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
         with:
-          tagName: webmenu-v__VERSION__
-          releaseName: "webmenu v__VERSION__"
-          releaseBody: "See the assets to download this version and install."
-          releaseDraft: false
-          prerelease: false
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: src-tauri/target/release/bundle/appimage/webmenu.AppImage
+          asset_name: webmenu.AppImage
+          tag: ${{ github.ref }}
+          overwrite: true
