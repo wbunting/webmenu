@@ -1,11 +1,11 @@
 {
   "name": "webmenu",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "license": "GPL-3.0-only",
   "scripts": {
     "build": "rollup -c",
     "dev:svelte": "rollup -c -w",
-    "start": "sirv dist",
+    "start": "sirv public",
     "validate": "svelte-check",
     "tauri": "tauri",
     "dev:tauri": "wait-port localhost:5000 && yarn tauri dev",

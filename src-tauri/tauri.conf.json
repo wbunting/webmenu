@@ -1,6 +1,6 @@
 {
   "build": {
-    "distDir": "../dist",
+    "distDir": "../public",
     "devPath": "http://localhost:5000",
     "beforeDevCommand": "",
     "beforeBuildCommand": "yarn build"
@@ -27,8 +27,8 @@
       "active": true
     },
     "bundle": {
-      "active": false,
-      "targets": [],
+      "active": true,
+      "targets": "all",
       "identifier": "com.tauri.dev",
       "icon": [
         "icons/32x32.png",
