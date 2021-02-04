@@ -13,7 +13,7 @@ A dmenu like program for generating a menu of options from a list of html elemen
 - [What is this?](#what-is-this)
 - [Why is this useful?](#why-is-this-useful)
 - [Installation](#installation)
-- [Usage](#usage)
+- [Getting Started](#getting-started)
 - [Recipes](#recipes)
 - [Development](#development)
 - [Philosophy](#philosophy-and-faq)
@@ -116,7 +116,10 @@ cargo add tauri-bundler && yarn install && yarn tauri build
 This will create the binaries for your operating system in: `./src-tauri/release/target/`
 
 
-## Usage
+## Getting Started
+
+
+### Hello world
 
 Construct a simple html file containing li elements that you would like the user to select from. 
 
@@ -136,6 +139,11 @@ webmenu -s items.html
 
 After the user selects a choice the `output` attribute will be written to standard output. 
 
+
+### Using Examples
+
+**** SOME EXPLANATION OF HOW TO EASILY PULL / COMPILE THE EXAMPLES **** 
+
 ### Styling
 
 Styling now is all done via [tailwindcss](https://tailwindcss.com/) tags. The benefit in this particular case is that there is no extra style file or `<style>` tag necessary for rendering the list elements. 
@@ -148,7 +156,9 @@ Two things we will probably support in the future:
 
 If you pass a string to the `-p` option of webmenu you will get a fuzzy find prompt injected at the top of the webmenu (exactly like dmenu). This disables the letter hotkeys however.
 
-## Recipes
+## Examples
+
+You can find several examples in the `examples/` directory of this repository. Each of them contains their own readme with instructions on how to boostrap the example. 
 
 A few of the scripts used here can be found in the scripts directory of the repository. For the helper utilities you'll have to compile them yourself with [pkg](https://github.com/vercel/pkg) at the moment, but projects can be made of them if there is enough interest.
 
