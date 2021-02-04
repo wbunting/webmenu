@@ -44,6 +44,12 @@ jobs:
       - name: build assets
         run: yarn tauri build
 
+      - name: Hello world action step
+        id: hello
+        uses: ./
+        with:
+          who-to-greet: "Mona the Octocat"
+
       - name: semantic release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
