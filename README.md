@@ -52,48 +52,7 @@ xargs -0 -I{} webmenu -s "{}" |
 xargs -I{} $BROWSER "{}"
 ```
 
-Now the job is only to fill in the data transformation step which you could do via whatever method you please. We have example implementations in rust and Node.js in the examples repository. Here's a trivial transformation written in Node.js which we can convert to a binary using [pkg](https://github.com/vercel/pkg):
-
-```js
-// examples/ddgr-search/ddgr-renderer.js
-
-// read standard input
-let input_stdin = "";
-const stdin = process.openStdin();
-stdin.on("data", (data) => {
-  input_stdin += data;
-});
-stdin.on("end", () => {
-  main();
-  process.exit();
-});
-
-const main = () => {
-  // parse the json from standard input
-  const jsonData = JSON.parse(input_stdin);
-  
-  // render the json to styled li elements for webmenu 
-  const html = jsonData
-    .map(
-      ({
-        abstract,
-        title,
-        url,
-      }) => `<li output="${url}">
-          <div class="flex items-center">
-            <div class="">
-              <h2 class="font-bold text-lg">${title}</h2>
-              <p class="text-sm">${abstract}</p>
-            </div>
-          </div>
-        </li>`
-    )
-    .join("");
-    
-  // write the output to standard output
-  console.log(html);
-};
-```
+Now the job is only to fill in the data transformation step which you could do via whatever method you please. We have example implementations in Rust and Node.js in the examples repository. For [example](https://github.com/wbunting/webmenu/blob/master/examples/ddgr-search/ddgr-renderer.js).
 
 The result is a simple pipeline for searching for data, browsing the results in whatever UI you like and then pointing to the results. You do all of this without ever visiting a website directly. Not visiting sites directly prevents the running of insecure / nonfree javascript, and removes a lot of the bloat that is typical of most sites.
 
