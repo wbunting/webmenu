@@ -1,5 +1,6 @@
 const core = require("@actions/core");
 const github = require("@actions/github");
+import execa from "execa";
 
 function execCommand(command, { cwd }) {
   console.log(`running ${command}`);
