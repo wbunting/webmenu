@@ -31,7 +31,7 @@ This will prompt the use to select either "Hello" or "World" and upon selection 
 
 ## Why is this useful?
 
-While useless by itself, it is useful in the same way that [dmenu](https://tools.suckless.org/dmenu/) is useful for adding simple interactivity to applications. webmenu seeks to do the same, but while allowing for a bit more flexibility in styling the menu items, and handling more complex input than just single lines of input. 
+While useless by itself, it is useful in the same way that [dmenu](https://tools.suckless.org/dmenu/) is useful for adding simple interactivity to applications. webmenu seeks to do the same, but while allowing for a bit more flexibility in styling the menu items, and handling more complex input than just single lines. 
 
 A pipeline that uses webmenu might be to:
 1. curl a resource from the web (not executing javascript in the process)
@@ -226,6 +226,8 @@ This will wait for the frontend assets to bundle before launching Tauri.
 ### Why HTML?
 
 Our core uses Rust for the messaging between the binary and the webview, we could have easily used some binding to produce list UI in GTK etc, but this is much harder for end users to learn. HTML is widely known and inherently secure as just a markup language (except for the `<script>` tag). 
+
+Additionally some might wonder why the input format isn't simply JSON. The answer to that is that then you would not be able to control the rendering logic / styling external to webmenu and would instead be forced to use a somewhat standardized JSON schema / output template. Now you can just write a small script or package to convert JSON -> rendered HTML and then pipe to webmenu for exactly the experience you are going for. 
 
 ### Why Webview?
 
