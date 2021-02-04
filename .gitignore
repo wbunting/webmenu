@@ -6,4 +6,4 @@ src-tauri/target/
 dist/index.tauri.html
 dist/build
 
-/target/
+target/
