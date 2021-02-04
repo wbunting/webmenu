@@ -50,10 +50,10 @@ xargs -0 -I{} webmenu -s "{}" |
 xargs -I{} $BROWSER "{}"
 ```
 
-Now the job is only to fill in the data transformation step which you could do via whatever method you please. Here's a trivial transformation written in Node.js which we can convert to a binary using [pkg](https://github.com/vercel/pkg):
+Now the job is only to fill in the data transformation step which you could do via whatever method you please. We have example implementations in rust and Node.js in the examples repository. Here's a trivial transformation written in Node.js which we can convert to a binary using [pkg](https://github.com/vercel/pkg):
 
 ```js
-// scripts/ddgr-to-html.js
+// scripts/js/ddgr-to-html.js
 
 // read standard input
 let input_stdin = "";
