@@ -5,7 +5,7 @@
   "scripts": {
     "build": "rollup -c",
     "dev:svelte": "rollup -c -w",
-    "start": "sirv dist",
+    "start": "sirv public",
     "validate": "svelte-check",
     "tauri": "tauri",
     "dev:tauri": "wait-port localhost:5000 && yarn tauri dev",
