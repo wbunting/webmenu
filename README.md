@@ -53,7 +53,7 @@ xargs -I{} $BROWSER "{}"
 Now the job is only to fill in the data transformation step which you could do via whatever method you please. We have example implementations in rust and Node.js in the examples repository. Here's a trivial transformation written in Node.js which we can convert to a binary using [pkg](https://github.com/vercel/pkg):
 
 ```js
-// scripts/js/ddgr-to-html.js
+// examples/ddgr-search/ddgr-renderer.js
 
 // read standard input
 let input_stdin = "";
@@ -98,6 +98,10 @@ The result is a simple pipeline for searching for data, browsing the results in 
 It is also nice to bind scripts like this to a hotkey so that you can easily search for things without ever leaving the keyboard. 
 
 ## Installation
+
+### Arch based distros
+
+The package is available in the AUR as `webmenu`. So you can install with pacman / paru as normal. 
 
 ### Pre-built binaries
 
@@ -146,14 +150,15 @@ Two things we will probably support in the future:
 
 If you pass a string to the `-p` option of webmenu you will get a fuzzy find prompt injected at the top of the webmenu (exactly like dmenu). This disables the letter hotkeys however.
 
-## Recipes
+## Examples 
 
-A few of the scripts used here can be found in the scripts directory of the repository. For the helper utilities you'll have to compile them yourself with [pkg](https://github.com/vercel/pkg) at the moment, but projects can be made of them if there is enough interest.
+A few of the scripts used here can be found in the examples directory of the repository. For the helper utilities you'll have to compile them yourself with cargo for Rust or [pkg](https://github.com/vercel/pkg) for Node.js at the moment, but projects can be made of them if there is enough interest.
 
 ### Search menu
 ```bash
 #!/bin/sh
-# scripts/ddgr
+# examples/ddgr-search/ddgr-search
+
 echo "" | 
 dmenu -i -p "Search" | 
 xargs -I{} ddgr -np "{}" | 
@@ -162,13 +167,13 @@ xargs -0 -I{} webmenu -s "{}" |
 xargs -I{} $BROWSER "{}"
 ```
 
-See above for an implementation of ddgr-to-html in Node.js. You can find it in the scripts folder of this repository. You could even pipe the result to a program switcher depending on the url -- if say you wanted to open videos in mpv. 
+See above for an implementation of ddgr-renderer Node.js. You can find it in the scripts folder of this repository. You could even pipe the result to a program switcher depending on the url -- if say you wanted to open videos in mpv. 
 
 ### Video watching menu
 
 ```bash
 #!/bin/sh
-# scripts/youtube-search
+# examples/youtube-search/youtube-search
 
 # prompt search
 search_query=$(echo "" | 
