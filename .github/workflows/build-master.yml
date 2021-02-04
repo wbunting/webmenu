@@ -30,6 +30,7 @@ jobs:
         with:
           crate: tauri-bundler
           version: latest
+          use-tool-cache: true
 
       - name: install webkit2gtk (ubuntu only)
         if: matrix.platform == 'ubuntu-latest'
