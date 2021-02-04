@@ -17,8 +17,6 @@ jobs:
         with:
           node-version: 12
 
-      - name: Hello world action step
-        id: hello
-        uses: ./.github/actions/hello/
-        with:
-          who-to-greet: "Mona the Octocat"
+      - name: Load the binaries
+        id: release
+        uses: ./.github/actions/release/
