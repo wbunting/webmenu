@@ -95,9 +95,9 @@ const main = () => {
 };
 ```
 
-The result is a simple pipeline for searching for data, browsing the results in whatever UI you like and then pointing to the results. You do all of this without ever visiting a website directly.
+The result is a simple pipeline for searching for data, browsing the results in whatever UI you like and then pointing to the results. You do all of this without ever visiting a website directly. Not visiting sites directly prevents the running of insecure / nonfree javascript, and removes a lot of the bloat that is typical of most sites.
 
-It is also nice to bind scripts like this to a hotkey so that you can easily search for things without ever leaving the keyboard. 
+It is nice to bind scripts like this to a global system hotkey so that you can easily search for things without ever leaving the keyboard.  
 
 ## Installation
 
