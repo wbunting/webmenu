@@ -6,6 +6,8 @@ A dmenu like program for generating a menu of options from a list of html elemen
 
 ![](webmenu.gif)
 
+## Table of Contents
+
 <!-- toc -->
 
 - [What is this?](#what-is-this)
