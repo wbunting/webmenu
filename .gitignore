@@ -5,6 +5,7 @@ public/index.tauri.html
 
 target/
 src-tauri/target/
+src-taur/icons/
 
 .vscode
 .DS_Store
