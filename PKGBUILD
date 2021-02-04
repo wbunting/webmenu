@@ -1,7 +1,7 @@
 # Maintainer: wbunting
 
 pkgname=webmenu-bin
-pkgver=0.1.2
+pkgver=0.1.3
 pkgrel=1
 pkgdesc="A simple webview renderer for html list items"
 url="https://github.com/wbunting/webmenu"
