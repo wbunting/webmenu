@@ -1,11 +1,8 @@
-name: "publish"
-on:
-  push:
-    branches:
-      - master
+name: "test action"
+on: [pull_request]
 
 jobs:
-  publish-tauri:
+  test-tauri:
     strategy:
       fail-fast: false
       matrix:
