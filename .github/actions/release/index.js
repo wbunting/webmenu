@@ -15,13 +15,12 @@ function execCommand(command, { cwd }) {
 }
 
 try {
-  // test
-  execCommand("touch test.txt && echo 'hi' >> test.txt", {
-    cwd: process.cwd(),
-  });
+  // get the release number somehow
 
   // tar the binary
-  execCommand("tar -czf test.txt.tgz test.txt", { cwd: process.cwd() });
+  execCommand("tar -czf webmenu.tgz ./src-tauri/target/release/webmenu", {
+    cwd: process.cwd(),
+  });
 
   execCommand("ls -a", { cwd: process.cwd() });
   // upload the binary to the release
