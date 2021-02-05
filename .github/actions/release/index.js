@@ -16,7 +16,7 @@ function execCommand(command, { cwd }) {
 
 try {
   // get the release number somehow
-  let releaseVersion = core.getInpput("release_version");
+  let releaseVersion = core.getInput("release_version");
 
   // tar the binary
   execCommand(

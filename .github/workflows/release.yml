@@ -44,22 +44,14 @@ jobs:
       - name: build assets
         run: yarn tauri build
 
-      - name: Hello world action step
-        id: hello
-        uses: ./
-        with:
-          who-to-greet: "Mona the Octocat"
-
       - name: semantic release
+        id: semantic_release
+        uses: codfish/semantic-release-action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npx semantic-release
 
-      - name: Upload binaries to release
-        uses: svenstaro/upload-release-action@v2
+      - name: Load the binary to release
+        id: release
+        uses: ./.github/actions/release/
         with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: src-tauri/target/release/bundle/appimage/webmenu.AppImage
-          asset_name: webmenu.AppImage
-          tag: ${{ github.ref }}
-          overwrite: true
+          release_version: ${{ steps.semantic_release.outputs.release-version }}
