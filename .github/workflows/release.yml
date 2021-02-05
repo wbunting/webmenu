@@ -14,6 +14,8 @@ jobs:
     runs-on: ${{ matrix.platform }}
     steps:
       - uses: actions/checkout@v2
+        with:
+          persist-credentials: false
 
       - name: setup node
         uses: actions/setup-node@v1
@@ -46,12 +48,13 @@ jobs:
 
       - name: semantic release
         id: semantic_release
-        uses: codfish/semantic-release-action@v1
+        uses: cycjimmy/semantic-release-action@v2
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Load the binary to release
         id: release
         uses: ./.github/actions/release/
         with:
-          release_version: ${{ steps.semantic_release.outputs.release-version }}
+          release_version: ${{ steps.semantic_release.outputs.new_release_version }}
