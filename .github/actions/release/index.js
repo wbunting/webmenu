@@ -16,11 +16,15 @@ function execCommand(command, { cwd }) {
 
 try {
   // get the release number somehow
+  let releaseVersion = core.getInpput("release_version");
 
   // tar the binary
-  execCommand("tar -czf webmenu.tgz ./src-tauri/target/release/webmenu", {
-    cwd: process.cwd(),
-  });
+  execCommand(
+    `tar -czf webmenu_${releaseVersion}_x64.app.tgz ./src-tauri/target/release/webmenu`,
+    {
+      cwd: process.cwd(),
+    }
+  );
 
   execCommand("ls -a", { cwd: process.cwd() });
   // upload the binary to the release
