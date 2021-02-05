@@ -23,6 +23,7 @@ try {
   // tar the binary
   execCommand("tar -czf test.txt.tgz test.txt", { cwd: process.cwd() });
 
+  execCommand("ls -a", { cwd: process.cwd() });
   // upload the binary to the release
 } catch (error) {
   core.setFailed(error.message);
