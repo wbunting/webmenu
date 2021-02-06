@@ -1,0 +1,33 @@
+name: "test"
+on: [pull_request]
+
+jobs:
+  publish-tauri:
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [ubuntu-latest]
+
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+
+      - name: install app dependencies
+        run: yarn install
+
+      - name: semantic release
+        id: semantic_release
+        uses: cycjimmy/semantic-release-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Load the binary to release
+        id: release
+        uses: ./.github/actions/release/
+        with:
+          release_version: ${{ steps.semantic_release.outputs.new_release_version }}
