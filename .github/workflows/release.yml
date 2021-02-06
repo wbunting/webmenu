@@ -14,8 +14,6 @@ jobs:
     runs-on: ${{ matrix.platform }}
     steps:
       - uses: actions/checkout@v2
-        with:
-          persist-credentials: false
 
       - name: setup node
         uses: actions/setup-node@v1
@@ -51,7 +49,6 @@ jobs:
         uses: cycjimmy/semantic-release-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Load the binary to release
         id: release
