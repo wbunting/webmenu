@@ -23,7 +23,8 @@ try {
 
   // tar the binary
   execCommand(
-    `tar -czf webmenu_${releaseVersion}_x64.app.tgz ./src-tauri/target/release/webmenu`,
+    // `tar -czf webmenu_${releaseVersion}_x64.app.tgz ./src-tauri/target/release/webmenu`,
+    `tar -czf webmenu_${releaseVersion}_x64.app.tgz ./README.md`,
     {
       cwd: process.cwd(),
     }
@@ -34,6 +35,8 @@ try {
     repo: context.repo.repo,
     tag: releaseVersion,
   });
+
+  console.log("release", release);
 
   execCommand("ls -a", { cwd: process.cwd() });
   execCommand("pwd", { cwd: process.cwd() });
