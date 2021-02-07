@@ -1,0 +1,61 @@
+name: "publish"
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  publish-tauri:
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [ubuntu-latest]
+
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+
+      - name: install Rust stable
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+
+      - name: install tauri bundler
+        uses: actions-rs/install@v0.1
+        with:
+          crate: tauri-bundler
+          version: latest
+          use-tool-cache: true
+
+      - name: install webkit2gtk (ubuntu only)
+        if: matrix.platform == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y webkit2gtk-4.0
+
+      - name: install app dependencies
+        run: yarn
+
+      - name: build assets
+        run: yarn tauri build
+
+      - name: semantic release
+        id: semantic_release
+        uses: cycjimmy/semantic-release-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.CI_TOKEN }}
+          GIT_CREDENTIALS: "wbunting:${{ secrets.CI_TOKEN }}"
+
+      - name: Load the binary to release
+        id: release
+        uses: ./.github/actions/release/
+        with:
+          release_version: ${{ steps.semantic_release.outputs.new_release_version }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
