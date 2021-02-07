@@ -1,0 +1,9 @@
+name: "Load Binary to Release"
+description: "takes the compiled binary and runs tar and then attaches that to the release"
+inputs:
+  tag_name: # id of input
+    description: "The version of the release to load assets to"
+    required: true
+runs:
+  using: "node12"
+  main: "index.js"

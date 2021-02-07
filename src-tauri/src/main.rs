@@ -17,6 +17,9 @@ fn main() {
             println!("{}", output);
             std::process::exit(0);
           }
+          Exit {} => {
+            std::process::exit(0);
+          }
         },
       }
     })

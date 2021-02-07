@@ -1,9 +1,9 @@
 {
   "build": {
-    "distDir": "../dist",
+    "distDir": "../public",
     "devPath": "http://localhost:5000",
     "beforeDevCommand": "",
-    "beforeBuildCommand": ""
+    "beforeBuildCommand": "yarn build"
   },
   "ctx": {},
   "tauri": {
@@ -12,6 +12,13 @@
         {
           "name": "source",
           "short": "s",
+          "takesValue": true,
+          "description": "html source of li elements for webmenu"
+        },
+        {
+          "name": "placeholder",
+          "short": "p",
+          "description": "placeholder for fzf",
           "takesValue": true
         }
       ]
@@ -55,7 +62,7 @@
       "resizable": false,
       "fullscreen": false,
       "width": 800,
-      "height": 1000
+      "height": 600
     },
     "security": {
       "csp": "default-src blob: data: filesystem: ws: http: https: 'unsafe-eval' 'unsafe-inline'"

@@ -1,5 +1,12 @@
 /node_modules/
-/public/build/
+
+public/build
+public/index.tauri.html
+
+target/
+src-tauri/target/
+src-taur/icons/
+
 .vscode
 .DS_Store
-./src-tauri/target/
+
