@@ -1,7 +1,7 @@
 name: "Load Binary to Release"
 description: "takes the compiled binary and runs tar and then attaches that to the release"
 inputs:
-  release_version: # id of input
+  tag_name: # id of input
     description: "The version of the release to load assets to"
     required: true
 runs:
