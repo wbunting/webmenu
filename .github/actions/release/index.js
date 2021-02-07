@@ -17,7 +17,7 @@ async function execCommand(command, { cwd }) {
 
 const main = async () => {
   try {
-    const octokit = getOctokit({ auth: process.env.GITHUB_TOKEN });
+    const octokit = getOctokit(process.env.GITHUB_TOKEN);
     // get the release number somehow
     let releaseVersion = core.getInput("tag_name");
     console.log("releaseVersion", releaseVersion);
