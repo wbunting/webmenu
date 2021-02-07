@@ -45,14 +45,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GIT_CREDENTIALS: "wbunting:${{ secrets.CI_TOKEN }}"
 
-      - name: Get Release by Tag
-        id: get_release_by_tag
-        uses: jonfriesen/get-release-by-tag@v1.0.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-
       - name: Load the binary to release
         id: release
         uses: ./.github/actions/release/
