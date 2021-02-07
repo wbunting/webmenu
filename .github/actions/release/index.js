@@ -23,17 +23,17 @@ const main = async () => {
     console.log("releaseVersion", releaseVersion);
 
     // tar the binary
-    execCommand(
-      `tar -czf webmenu_${releaseVersion}_x64.app.tgz ./src-tauri/target/release/webmenu`,
-      {
-        cwd: process.cwd(),
-      }
-    );
+    execCommand(`tar -czf webmenu_v${releaseVersion}_x64.app.tgz ./webmenu`, {
+      cwd: `${process.cwd()}/src-tauri/target/release`,
+    });
+    execCommand(`mv webmenu_v${releaseVersion}_x64.app.tgz ${process.cwd()}`, {
+      cwd: `${process.cwd()}/src-tauri/target/release`,
+    });
 
     const release = await octokit.repos.getReleaseByTag({
       owner: context.repo.owner,
       repo: context.repo.repo,
-      tag: releaseVersion,
+      tag: `v${releaseVersion}`,
     });
 
     console.log("release", release);
@@ -46,9 +46,9 @@ const main = async () => {
       repo: context.repo.repo,
       release_id: release.data.id,
       url: release.data.upload_url,
-      name: `webmenu_${releaseVersion}_x64.app.tgz`,
+      name: `webmenu_v${releaseVersion}_x64.app.tgz`,
       data: fs.readFileSync(
-        `${process.cwd()}/webmenu_${releaseVersion}_x64.app.tgz`
+        `${process.cwd()}/webmenu_v${releaseVersion}_x64.app.tgz`
       ),
     });
   } catch (error) {
