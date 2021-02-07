@@ -14,7 +14,7 @@ A dmenu like program for generating a menu of options from a list of html elemen
 - [Why is this useful?](#why-is-this-useful)
 - [Installation](#installation)
 - [Getting Started](#getting-started)
-- [Recipes](#recipes)
+- [Examples](#examples)
 - [Development](#development)
 - [Philosophy](#philosophy-and-faq)
 
@@ -196,7 +196,7 @@ This will wait for the frontend assets to bundle before launching Tauri.
 
 Browsers should not be the only (or even primary) way of interfacing with the web. They are good for some things, but require a lot of system resources to run and are easy attack vectors for malicious code / trackers. Web users should not have to run nonfree javascript in browsers to do basic navigation like searching for things, consuming social feeds and news, etc. That javascript contains untold numbers of trackers that require users to install lots of blockers / addons if they want to maintain their privacy. While possible to block some of this, it hints at a web that is not structured with the benefit of users in mind. webmenu is a small step toward protecting users of the web, while maintaining some of the nice interface elements that most users are comfortable with. All while being extremely light on system resources. 
 
-One additional phliosophical point that this aims to adhere to is the UNIX philosophy. Often lost among web applications due to the server-client monolith paradigm, we try to maintain it here. The features of webmenu are finite and well-scoped, and it is designed to interface well with other programs. 
+This application aims to adhere to is the UNIX philosophy. Often lost among web applications due to the server-client monolith paradigm, we try to maintain it here. The features of webmenu are finite and well-scoped, and it is designed to interface well with other programs. 
 
 ### Why HTML?
 
