@@ -18,8 +18,9 @@ jobs:
       - name: install
         run: yarn install
 
-      - name: release
-        run: npx semantic-release
+      - name: Semantic Release
+        id: semantic_release
+        uses: cycjimmy/semantic-release-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.CI_TOKEN }}
 
@@ -27,6 +28,6 @@ jobs:
         id: release
         uses: ./.github/actions/release/
         with:
-          tag_name: ${{ github.ref }}
+          tag_name: ${{ steps.semantic_release.outputs.new_release_version }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
