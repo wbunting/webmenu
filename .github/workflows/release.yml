@@ -57,7 +57,6 @@ jobs:
         id: release
         uses: ./.github/actions/release/
         with:
-          release_version: ${{ steps.get_release_by_tag.outputs.release.tag_name }}
-          release_id: ${{ steps.get_release_by_tag.outputs.release.id }}
+          tag_name: ${{ github.ref }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
