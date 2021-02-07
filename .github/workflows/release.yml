@@ -5,13 +5,8 @@ on:
       - master
 
 jobs:
-  publish-tauri:
-    strategy:
-      fail-fast: false
-      matrix:
-        platform: [ubuntu-latest]
-
-    runs-on: ${{ matrix.platform }}
+  publish-webmenu:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
 
@@ -44,18 +39,25 @@ jobs:
       - name: build assets
         run: yarn tauri build
 
-      - name: semantic release
-        id: semantic_release
-        uses: cycjimmy/semantic-release-action@v2
+      - name: release
+        run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GH_TOKEN: ${{ secrets.CI_TOKEN }}
           GIT_CREDENTIALS: "wbunting:${{ secrets.CI_TOKEN }}"
+
+      - name: Get Release by Tag
+        id: get_release_by_tag
+        uses: jonfriesen/get-release-by-tag@v1.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
 
       - name: Load the binary to release
         id: release
         uses: ./.github/actions/release/
         with:
-          release_version: ${{ steps.semantic_release.outputs.new_release_version }}
+          release_version: ${{ steps.get_release_by_tag.outputs.release.tag_name }}
+          release_id: ${{ steps.get_release_by_tag.outputs.release.id }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

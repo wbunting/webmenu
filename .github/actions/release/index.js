@@ -16,9 +16,11 @@ function execCommand(command, { cwd }) {
 }
 
 try {
-  const octokit = getOctokit(process.env.GITHUB_TOKEN);
+  const octokit = getOctokit({ auth: process.env.GITHUB_TOKEN });
   // get the release number somehow
-  let releaseVersion = core.getInput("release_version");
+  let releaseVersion = core.getInput("release_version") || "v1.0.0";
+  let releaseId = core.getInput("release_id");
+  console.log("releaseVersion", releaseVersion);
 
   // tar the binary
   execCommand(
@@ -28,18 +30,19 @@ try {
     }
   );
 
-  const release = octokit.repos.getReleaseByTag({
-    owner: context.repo.owner,
-    repo: context.repo.repo,
-    tag: releaseVersion,
-  });
+  // const release = octokit.repos.getReleaseByTag({
+  //  owner: context.repo.owner,
+  //  repo: context.repo.repo,
+  //  tag: releaseVersion,
+  // });
 
   execCommand("ls -a", { cwd: process.cwd() });
   execCommand("pwd", { cwd: process.cwd() });
+
   octokit.repos.uploadReleaseAsset({
     owner: context.repo.owner,
     repo: context.repo.repo,
-    release_id: release.id,
+    release_id: releaseId,
     name: `webmenu_${releaseVersion}_x64.app.tgz`,
     data: fs.readFileSync(
       `${process.cwd()}/webmenu_${releaseVersion}_x64.app.tgz`
