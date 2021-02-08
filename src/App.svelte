@@ -62,6 +62,9 @@
   };
 
   onMount(async () => {
+    invoke({
+      cmd: "init",
+    });
     const matches = await getMatches();
 
     // TODO: This is a hack until I figure out how to pass CLI arguments in dev mode to tauri

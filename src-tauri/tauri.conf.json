@@ -20,6 +20,12 @@
           "short": "p",
           "description": "placeholder for fzf",
           "takesValue": true
+        },
+        {
+          "name": "windowid",
+          "short": "w",
+          "description": "the x11 window id to parent this to",
+          "takesValue": true
         }
       ]
     },

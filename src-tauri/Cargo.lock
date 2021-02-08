@@ -1735,6 +1735,7 @@ dependencies = [
  "serde_json",
  "tauri",
  "winres",
+ "x11",
 ]
 
 [[package]]
@@ -1838,6 +1839,16 @@ dependencies = [
  "winapi",
  "winrt",
  "xml-rs",
+]
+
+[[package]]
+name = "x11"
+version = "2.18.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "77ecd092546cb16f25783a5451538e73afc8d32e242648d54f4ae5459ba1e773"
+dependencies = [
+ "libc",
+ "pkg-config",
 ]
 
 [[package]]
