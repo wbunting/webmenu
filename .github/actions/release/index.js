@@ -2,6 +2,7 @@ const core = require("@actions/core");
 const { getOctokit, context } = require("@actions/github");
 const execa = require("execa");
 const fs = require("fs");
+const exec = require('child_process').exec
 
 function execCommand(command, { cwd }) {
   console.log(`running ${command}`);
@@ -22,14 +23,12 @@ const main = async () => {
     let releaseVersion = core.getInput("tag_name");
     console.log("releaseVersion", releaseVersion);
 
+
+
     // tar the binary
-    execCommand(`tar -czf webmenu_v${releaseVersion}_x64.app.tgz ./src-tauri/target/release`, {
-      cwd: `${process.cwd()}`,
-    });
-    execCommand(`tar -zxvf webmenu_v${releaseVersion}_x64.app.tgz`, {
-	    cwd: process.cwd(),
-    });
-    execCommand(`ls -l`, {cwd: process.cwd()});
+    exec(`tar -czf webmenu_v${releaseVersion}_x64.app.tgz ./src-tauri/target/release`);
+    exec(`tar -zxvf webmenu_v${releaseVersion}_x64.app.tgz`);
+    exec(`ls -l`);
 
     const release = await octokit.repos.getReleaseByTag({
       owner: context.repo.owner,
