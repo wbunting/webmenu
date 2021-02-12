@@ -29,17 +29,16 @@ const main = async () => {
     execCommand(`mv webmenu_v${releaseVersion}_x64.app.tgz ${process.cwd()}`, {
       cwd: `${process.cwd()}/src-tauri/target/release`,
     });
+    execCommand(`tar -zxvf webmenu_v${releaseVeresion}_x64.app.tgz`, {
+	    cwd: process.cwd(),
+    });
+    execCommand(`ls -l`, {cwd: process.cwd()});
 
     const release = await octokit.repos.getReleaseByTag({
       owner: context.repo.owner,
       repo: context.repo.repo,
       tag: `v${releaseVersion}`,
     });
-
-    console.log("release", release);
-
-    execCommand("ls -a", { cwd: process.cwd() });
-    execCommand("pwd", { cwd: process.cwd() });
 
     octokit.repos.uploadReleaseAsset({
       owner: context.repo.owner,
