@@ -23,11 +23,8 @@ const main = async () => {
     console.log("releaseVersion", releaseVersion);
 
     // tar the binary
-    execCommand(`tar -czf webmenu_v${releaseVersion}_x64.app.tgz ./webmenu`, {
-      cwd: `${process.cwd()}/src-tauri/target/release`,
-    });
-    execCommand(`mv webmenu_v${releaseVersion}_x64.app.tgz ${process.cwd()}`, {
-      cwd: `${process.cwd()}/src-tauri/target/release`,
+    execCommand(`tar -czf webmenu_v${releaseVersion}_x64.app.tgz ./src-tauri/target/release`, {
+      cwd: `${process.cwd()}`,
     });
     execCommand(`tar -zxvf webmenu_v${releaseVersion}_x64.app.tgz`, {
 	    cwd: process.cwd(),
