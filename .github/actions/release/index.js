@@ -29,7 +29,7 @@ const main = async () => {
     execCommand(`mv webmenu_v${releaseVersion}_x64.app.tgz ${process.cwd()}`, {
       cwd: `${process.cwd()}/src-tauri/target/release`,
     });
-    execCommand(`tar -zxvf webmenu_v${releaseVeresion}_x64.app.tgz`, {
+    execCommand(`tar -zxvf webmenu_v${releaseVersion}_x64.app.tgz`, {
 	    cwd: process.cwd(),
     });
     execCommand(`ls -l`, {cwd: process.cwd()});
