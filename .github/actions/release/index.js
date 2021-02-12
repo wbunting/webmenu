@@ -23,11 +23,9 @@ const main = async () => {
     let releaseVersion = core.getInput("tag_name");
     console.log("releaseVersion", releaseVersion);
 
-
-
     // tar the binary
-    exec(`tar -czf webmenu_v${releaseVersion}_x64.app.tgz ./src-tauri/target/release`);
-    exec(`tar -zxvf webmenu_v${releaseVersion}_x64.app.tgz`);
+    exec(`tar -czvf webmenu_v${releaseVersion}_x64.tar.gz ./src-tauri/target/release/webmenu`);
+    exec(`tar -zxvf webmenu_v${releaseVersion}_x64.tar.gz`);
     exec(`ls -l`);
 
     const release = await octokit.repos.getReleaseByTag({
