@@ -39,9 +39,9 @@ const main = async () => {
       repo: context.repo.repo,
       release_id: release.data.id,
       url: release.data.upload_url,
-      name: `webmenu_v${releaseVersion}_x64.app.tgz`,
+      name: `webmenu_v${releaseVersion}_x64.tar.gz`,
       data: fs.readFileSync(
-        `${process.cwd()}/webmenu_v${releaseVersion}_x64.app.tgz`
+        `${process.cwd()}/webmenu_v${releaseVersion}_x64.tar.gz`
       ),
     });
   } catch (error) {
