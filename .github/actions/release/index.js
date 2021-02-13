@@ -24,9 +24,10 @@ const main = async () => {
     console.log("releaseVersion", releaseVersion);
 
     // tar the binary
-    exec(`tar -czvf webmenu_v${releaseVersion}_x64.tar.gz ./src-tauri/target/release/webmenu`);
-    exec(`tar -zxvf webmenu_v${releaseVersion}_x64.tar.gz`);
-    exec(`ls -l`);
+    execa(`tar -czvf webmenu_v${releaseVersion}_x64.tar.gz ./src-tauri/target/release/webmenu`, {cwd: process.cwd()});
+    execa(`tar -zxvf webmenu_v${releaseVersion}_x64.tar.gz`, {cwd: process.cwd()});
+    execa(`ls -l`, {cwd: process.cwd()});
+    execa(`tar --version`, {cwd: process.cwd()});
 
     const release = await octokit.repos.getReleaseByTag({
       owner: context.repo.owner,
