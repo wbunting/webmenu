@@ -4,16 +4,17 @@ const execa = require("execa");
 const fs = require("fs");
 const exec = require('child_process').exec
 
-function execCommand(command, { cwd }) {
+async function execCommand(command, { cwd }) {
   console.log(`running ${command}`);
   const [cmd, ...args] = command.split(" ");
-  return execa(cmd, args, {
+  const out = await execa(cmd, args, {
     cwd,
     shell: process.env.shell || true,
     windowsHide: true,
     stdio: "inherit",
     env: { FORCE_COLOR: "0" },
-  }).then();
+  });
+  return out;
 }
 
 const main = async () => {
@@ -24,10 +25,10 @@ const main = async () => {
     console.log("releaseVersion", releaseVersion);
 
     // tar the binary
-    execa(`tar -czvf webmenu_v${releaseVersion}_x64.tar.gz ./src-tauri/target/release/webmenu`, {cwd: process.cwd()});
-    execa(`tar -zxvf webmenu_v${releaseVersion}_x64.tar.gz`, {cwd: process.cwd()});
-    execa(`ls -l`, {cwd: process.cwd()});
-    execa(`tar --version`, {cwd: process.cwd()});
+    await execCommand(`tar -czvf webmenu_v${releaseVersion}_x64.tar.gz ./src-tauri/target/release/webmenu`, {cwd: process.cwd()});
+    await execCommand(`tar -zxvf webmenu_v${releaseVersion}_x64.tar.gz`, {cwd: process.cwd()});
+    await execCommand(`ls -l`, {cwd: process.cwd()});
+    await execCommand(`tar --version`, {cwd: process.cwd()});
 
     const release = await octokit.repos.getReleaseByTag({
       owner: context.repo.owner,
