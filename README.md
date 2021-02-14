@@ -31,7 +31,7 @@ This will prompt the use to select either "Hello" or "World" and upon selection 
 
 ## Why is this useful?
 
-While useless by itself, it is useful in the same way that [dmenu](https://tools.suckless.org/dmenu/) is useful for adding simple interactivity to applications. webmenu seeks to do the same, but while allowing for a bit more flexibility in styling the menu items, and handling more complex input than just single lines. 
+While useless by itself, it is useful in the same way that [dmenu](https://tools.suckless.org/dmenu/) is useful for adding simple interactivity to scripts/applications. webmenu seeks to do the same, but while allowing for a bit more flexibility in styling the menu items, and handling more complex input than just single lines. 
 
 A pipeline that uses webmenu might be to:
 1. curl a resource from the web (not executing javascript in the process)
@@ -64,7 +64,7 @@ It is nice to bind scripts like this to a global system hotkey so that you can e
 
 The package is available in the AUR as `webmenu`. So you can install with pacman / paru as normal. 
 
-### Pre-built binaries
+### Pre-built binaries for other distros
 
 Check the releases page for tarballs. These should work on Linux and MacOS, although MacOS is untested at the moment. 
 
@@ -101,11 +101,6 @@ webmenu -s items.html
 ```
 
 After the user selects a choice the `output` attribute will be written to standard output. 
-
-
-### Using Examples
-
-**** SOME EXPLANATION OF HOW TO EASILY PULL / COMPILE THE EXAMPLES **** 
 
 ### Styling
 
