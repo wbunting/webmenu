@@ -1,27 +1,34 @@
 # Maintainer: wbunting
 
-pkgname=webmenu-bin
-pkgver=1.0.0
+pkgname=webmenu-git
+pkgver=1.1.6
 pkgrel=1
 pkgdesc="A simple webview renderer for html list items"
 url="https://github.com/wbunting/webmenu"
 arch=("x86_64")
-license=("GPL-3.0-only")
+license=("GPL")
 provides=("webmenu")
 options=("strip")
-source=("https://github.com/wbunting/webmenu/releases/download/webmenu-v${pkgver}/webmenu_${pkgver}_x64.app.tgz")
-sha256sums=("ae55c62434473ab0c207f75760758b6c584c7ca6cdfddca299094cce63d4f1c3")
-makedepends=('webkit2gtk' 'appmenu-gtk-module' 'gtk3' 'squashfs-tools' 'npm' 'cargo')
+source=("git+$url")
+sha256sums=("SKIP")
+makedepends=('git' 'webkit2gtk' 'appmenu-gtk-module' 'gtk3' 'squashfs-tools' 'npm' 'cargo')
+
+pkgver() {
+  cd webmenu
+  git describe --long --tags | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g;s/\.r0.*$//'
+}
 
 build() {
-  cd $pkgname
-  npm install -g yarn
+  cd webmenu
+  # npm install -g --user yarn
   cargo install tauri-bundler
   yarn install
   yarn tauri build
 }
 
 package() {
-  cd $pkgname 
+  cd webmenu
   install -Dt "$pkgdir/usr/bin" src-tauri/target/release/webmenu
+  install -Dm664 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  install -Dm664 README.md "${pkgdir}/usr/share/doc/${pkgname}/README.md"
 }
