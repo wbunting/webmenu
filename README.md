@@ -20,7 +20,7 @@ A dmenu like program for generating a menu of options from a list of html elemen
 
 ## What is this?
 
-webmenu is a command line application that takes an html file of `li` tags and renders them in a simple webview. It is extremely light-weight and can replace the need to use a web browser for certain tasks. The "hello world" of this application is something like the following:
+webmenu is a command line application that takes an html file of `li` tags and renders them in a simple webview where the user is then prompted to select one of the items. It is extremely light-weight, and can replace the need to use a web browser for certain tasks. The "hello world" of this application is something like the following:
 
 ```bash
 webmenu -s "<li output='hello'>Hello</li><li output='world'>World</li>"
@@ -31,15 +31,18 @@ This will prompt the use to select either "Hello" or "World" and upon selection 
 
 ## Why is this useful?
 
-While useless by itself, it is useful in the same way that [dmenu](https://tools.suckless.org/dmenu/) is useful for adding simple interactivity to scripts/applications. webmenu seeks to do the same, but while allowing for a bit more flexibility in styling the menu items, and handling more complex input than just single lines. 
+While useless by itself, it is useful in the same way that [dmenu](https://tools.suckless.org/dmenu/) is useful for adding simple interactivity to scripts/applications. webmenu seeks to do the same, but while allowing for a bit more flexibility in two areas:
 
-A pipeline that uses webmenu might be to:
+1. styling the menu items
+2. handling structured input 
+
+Generally when using webmenu you will construct a pipeline that gets some data, processes it and then displays a menu for the user to select a choice. For example, you might:
 1. curl a resource from the web (not executing javascript in the process)
 2. pipe the response into a formatter that generates the options for webmenu
 3. pipe to webmenu
 4. take the output of webmenu and redirect it to an application intended for viewing that output. Eg. mpv for video, a terminal for text pages, a browser for complex pages etc.
 
-For example, if you use a command line search engine like [ddgr](https://github.com/jarun/ddgr) the results are returned in such a way that if you directly pipe them into a dmenu you will be prompted with options for both the result titles and the descriptions instead of only the titles of the results. And selection of an option will not output the url (instead it will output the title of the result). 
+To make this more concrete, if you use a command line search engine like [ddgr](https://github.com/jarun/ddgr) the results are returned in such a way that if you directly pipe them into a dmenu you will be prompted with options for both the result titles and the descriptions instead of only the titles of the results. And due to only taking a single line of input there is no way for dmenu to distinguish between titles / descriptions. Furthermore selection of an option in dmenu can only return the value it was given (not a mapping to another value like the url). 
 
 To see how webmenu can be of more use here consider this one-liner search example:
 
@@ -52,7 +55,7 @@ xargs -0 -I{} webmenu -s "{}" |
 xargs -I{} $BROWSER "{}"
 ```
 
-Now the job is only to fill in the data transformation step which you could do via whatever method you please. We have example implementations in Rust and Node.js in the examples repository. For [example](https://github.com/wbunting/webmenu/blob/master/examples/ddgr-search/ddgr-renderer.js).
+We first use dmenu just to get the search input string. Then we pass the search to ddgr and get back json results. From those json results we perform the data transformation step which you could do via whatever method you please. We have example implementations in Rust and Node.js in the examples repository. For [example](https://github.com/wbunting/webmenu/blob/master/examples/ddgr-search/ddgr-renderer.js).
 
 The result is a simple pipeline for searching for data, browsing the results in whatever UI you like and then pointing to the results. You do all of this without ever visiting a website directly. Not visiting sites directly prevents the running of insecure / nonfree javascript, and removes a lot of the bloat that is typical of most sites.
 
@@ -62,7 +65,7 @@ It is nice to bind scripts like this to a global system hotkey so that you can e
 
 ### Arch based distros
 
-The package is available in the AUR as `webmenu`. So you can install with pacman / paru as normal. 
+The package is available in the AUR as `webmenu-git`. So you can install with pacman / paru as normal. 
 
 ### Pre-built binaries for other distros
 
