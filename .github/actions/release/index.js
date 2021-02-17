@@ -25,7 +25,7 @@ const main = async () => {
     console.log("releaseVersion", releaseVersion);
 
     // tar the binary
-    await execCommand(`tar -czvf webmenu_v${releaseVersion}_x64.tar.gz ./src-tauri/target/release/webmenu`, {cwd: process.cwd()});
+    await execCommand(`tar -czvf webmenu_v${releaseVersion}_x64.tar.gz ./target/release/webmenu`, {cwd: process.cwd()});
     await execCommand(`tar -zxvf webmenu_v${releaseVersion}_x64.tar.gz`, {cwd: process.cwd()});
     await execCommand(`ls -l`, {cwd: process.cwd()});
     await execCommand(`tar --version`, {cwd: process.cwd()});

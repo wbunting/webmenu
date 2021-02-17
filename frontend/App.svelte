@@ -1,8 +1,6 @@
 <script>
-  import { getMatches } from "tauri/api/cli";
   import { onMount } from "svelte";
   import cx from "classnames";
-  import { invoke } from "tauri/api/tauri";
   let selectedOption = 0;
   let data = null;
   let fzf = "";
@@ -10,7 +8,7 @@
   let splitdata = [];
   let main = null;
   let showfzf = false;
-  const isProd = __env.isProd;
+  let host = "http://localhost:12395";
 
   function isElementInViewport(el) {
     let rect = el.getBoundingClientRect();
@@ -25,14 +23,10 @@
   }
 
   const handleClick = (output) => {
-    invoke({
-      cmd: "sendToStandardOutAndExit",
-      output,
-    });
+	  fetch(`${host}/write`, {method: 'POST', body: JSON.stringify({output})});
   };
 
   const updateData = () => {
-    console.log("updating");
     splitdata = data.split("<li");
     splitdata.shift();
 
@@ -61,25 +55,15 @@
     el.focus();
   };
 
-  onMount(async () => {
-    invoke({
-      cmd: "init",
-    });
-    const matches = await getMatches();
+   onMount(async () => {
+      const res = await fetch(`${host}/init`);
+      const matches = await res.json();
 
-    // TODO: This is a hack until I figure out how to pass CLI arguments in dev mode to tauri
-    if (isProd) {
-      data = matches.args.source.value;
+      data = matches.input;
 
-      if (Boolean(matches.args.placeholder.value)) {
+    if (Boolean(matches.placeholder)) {
         showfzf = true;
-        placeholder = matches.args.placeholder.value;
-      }
-    } else {
-      data =
-        "<li class='text-gray-300' output='hi'>hello</li><li output='wrld'>world</li>";
-      showfzf = true;
-      placeholder = "Search...";
+        placeholder = matches.placeholder;
     }
 
     updateData();
@@ -140,11 +124,9 @@
         break;
       }
       case "q": {
-        // kill the application
+	      // kill the application
         if (!showfzf) {
-          invoke({
-            cmd: "exit",
-          });
+          external.invoke('exit');
         }
         break;
       }
@@ -152,112 +134,81 @@
         const output = [...document.querySelectorAll("li")][0].getAttribute(
           "output"
         );
-        invoke({
-          cmd: "sendToStandardOutAndExit",
-          output,
-        });
+        fetch(`${host}/write`, {method: "POST", body: JSON.stringify({output})});
         break;
       }
       case "2": {
         const output = [...document.querySelectorAll("li")][1].getAttribute(
           "output"
         );
-        invoke({
-          cmd: "sendToStandardOutAndExit",
-          output,
-        });
+        fetch(`${host}/write`, {method: "POST", body: JSON.stringify({output})});
         break;
       }
       case "3": {
         const output = [...document.querySelectorAll("li")][2].getAttribute(
           "output"
         );
-        invoke({
-          cmd: "sendToStandardOutAndExit",
-          output,
-        });
+        fetch(`${host}/write`, {method: "POST", body: JSON.stringify({output})});
         break;
       }
       case "4": {
         const output = [...document.querySelectorAll("li")][3].getAttribute(
           "output"
         );
-        invoke({
-          cmd: "sendToStandardOutAndExit",
-          output,
-        });
+        fetch(`${host}/write`, {method: "POST", body: JSON.stringify({output})});
         break;
       }
       case "5": {
         const output = [...document.querySelectorAll("li")][4].getAttribute(
           "output"
         );
-        invoke({
-          cmd: "sendToStandardOutAndExit",
-          output,
-        });
+        fetch(`${host}/write`, {method: "POST", body: JSON.stringify({output})});
         break;
       }
       case "6": {
         const output = [...document.querySelectorAll("li")][5].getAttribute(
           "output"
         );
-        invoke({
-          cmd: "sendToStandardOutAndExit",
-          output,
-        });
+        fetch(`${host}/write`, {method: "POST", body: JSON.stringify({output})});
         break;
       }
       case "7": {
         const output = [...document.querySelectorAll("li")][6].getAttribute(
           "output"
         );
-        invoke({
-          cmd: "sendToStandardOutAndExit",
-          output,
-        });
+        fetch(`${host}/write`, {method: "POST", body: JSON.stringify({output})});
         break;
       }
       case "8": {
         const output = [...document.querySelectorAll("li")][7].getAttribute(
           "output"
         );
-        invoke({
-          cmd: "sendToStandardOutAndExit",
-          output,
-        });
+        fetch(`${host}/write`, {method: "POST", body: JSON.stringify({output})});
         break;
       }
       case "9": {
         const output = [...document.querySelectorAll("li")][8].getAttribute(
           "output"
         );
-        invoke({
-          cmd: "sendToStandardOutAndExit",
-          output,
-        });
+        fetch(`${host}/write`, {method: "POST", body: JSON.stringify({output})});
         break;
       }
       case "0": {
         const output = [...document.querySelectorAll("li")][9].getAttribute(
           "output"
         );
-        invoke({
-          cmd: "sendToStandardOutAndExit",
-          output,
-        });
+        fetch(`${host}/write`, {method: "POST", body: JSON.stringify({output})});
         break;
       }
       case "Enter": {
         // find the li that is selected and get it's output attribute
         const output = [...document.querySelectorAll("li")][
           selectedOption
-        ].getAttribute("output");
+	].getAttribute("output");
 
-        invoke({
-          cmd: "sendToStandardOutAndExit",
-          output,
-        });
+	fetch(`${host}/write`, {method: "POST", headers: {
+            "Content-Type": "application/json"
+	}, body: JSON.stringify({output})});
         break;
       }
       default:

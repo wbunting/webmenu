@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # prompt search
-search_query=$(echo "" | 
+search_query=$(echo "" |
 dmenu -i -p "🔎 Search" |
 # url encode spaces
 sed 's/ /+/g')
@@ -17,16 +17,14 @@ grep -oP '(?<=var ytInitialData = ).*}(?=;)' > /tmp/yts-search.json
 
 
 url=$(cat /tmp/yts-search.json |
-# the JSON from youtube contains a bunch of things we don't need so just remove those 
+# the JSON from youtube contains a bunch of things we don't need so just remove those
 simplify-youtube-json |
 # take the json and make some li elements to show in webmenu
-youtube-json-renderer | 
+youtube-json-renderer |
 # prompt the webmenu
-xargs -0 -I{} webmenu -s '{}')
+xargs -0 -I{} webmenu {})
 
 notify-send "Loading video..."
 
 # show the result in mpv
 mpv --ytdl-format="bestvideo[height<=?720][fps<=?30][ext=webm]+bestaudio/best" "$url"
-
-

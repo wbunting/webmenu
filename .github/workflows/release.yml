@@ -36,7 +36,7 @@ jobs:
         run: yarn
 
       - name: build assets
-        run: yarn tauri build
+        run: cargo build --release
 
       - name: Semantic Release
         id: semantic_release
