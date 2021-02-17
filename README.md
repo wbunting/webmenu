@@ -213,7 +213,3 @@ Tailwind essentially IS just plain CSS, but it ends up with easier to maintain c
 ### Why Svelte?
 
 No reason -- it's somewhat minimal and easy to set up -- eventually we can probably deprecate Svelte for a more simple templating engine written on the Rust side, although Svelte being a compiler probably removing it will not reduce the amount of javascript that we actually run in the webview (which is used for navigation, mounting the options to the DOM etc.).
-
-### Why Tauri?
-
-Very easy to get started, and comes with webview which we need. But, as with Svelte, it's probably not critical to the architecture and is a candidate for being replaced with just streaming html and our injected js directly to webview via the webview crate.
