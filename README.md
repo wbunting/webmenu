@@ -73,13 +73,13 @@ Check the releases page for tarballs. These should work on Linux and MacOS, alth
 
 ### From Source
 
-To compile from source, first clone the repository. You will need Rust and Node installed on your system. Then run:
+To compile from source, first clone the repository. You will need Rust and Node (with Yarn) installed on your system. Then run:
 
 ```bash
-cargo add tauri-bundler && yarn install && yarn tauri build
+yarn install && yarn build && cargo build --release
 ```
 
-This will create the binaries for your operating system in: `./src-tauri/release/target/`
+This will create the binary at: `./release/target/webmenu`
 
 
 ## Getting Started
